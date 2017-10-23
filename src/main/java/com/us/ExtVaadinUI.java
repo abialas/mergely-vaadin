@@ -28,7 +28,7 @@ public class ExtVaadinUI extends UI
         layout.setMargin(true);
         setContent(layout);
 
-        final DiffViewerComponent diffComponent = new DiffViewerComponent("Sample text in the left editpr");
+        final DiffViewerComponent diffComponent = new DiffViewerComponent("Sample text in the left editor");
 
         Button button = new Button("Click Button to set sample text");
         button.addClickListener(new Button.ClickListener() {
