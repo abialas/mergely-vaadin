@@ -103,18 +103,18 @@ When the above implementation is done a DiffViewerComponent can be used on the s
 
 ```
 VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(true);
-        setContent(layout);
+layout.setMargin(true);
+setContent(layout);
 
-        final DiffViewerComponent diffComponent = new DiffViewerComponent("Sample text in the left editor");
+final DiffViewerComponent diffComponent = new DiffViewerComponent("Sample text in the left editor");
 
-        Button button = new Button("Click Button to set sample text");
-        button.addClickListener(new Button.ClickListener() {
-            public void buttonClick(ClickEvent event) {
-                diffComponent.setRightText("Sample text in the right editor");
-            }
-        });
+Button button = new Button("Click Button to set sample text");
+button.addClickListener(new Button.ClickListener() {
+    public void buttonClick(ClickEvent event) {
+        diffComponent.setRightText("Sample text in the right editor");
+    }
+});
 
 
-        layout.addComponents(button, diffComponent);
+layout.addComponents(button, diffComponent);
 ```
