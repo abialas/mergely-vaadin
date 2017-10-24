@@ -1,17 +1,17 @@
 # How to integrate JavaScript control in Vaadin
 
-This project shows how to integrate JS control in Vaadin project. Example is based on recent task I had to do which was about creating a control which allows to compare two texts from files. I found a nice JS control -  http://www.mergely.com which does exactly what I need but it is available in JS only.
-This forced me to give a first try to integrate JS control in Vaadin project.
+This project shows how to integrate JS control in Vaadin project. The example is based on a recent task I had to do, which was about creating a control which allows to compare two texts from files. I found a nice JS control -  http://www.mergely.com which does exactly what I need, but it is available in JS only.
+This forced me to try to integrate JS control in Vaadin project.
 
-## Required steps to integrate JS control
+## Required steps to integrate JS control:
 
 ### 1. Copy JS files and CSS files (if exists) into your project. 
 
-I put files folder webapp/VAADIN/js and webapp/VAADIN/css folders.
+I put files in the webapp/VAADIN/js and webapp/VAADIN/css folders.
 
-### 2. Create class which represent state which is shared between server and client.
+### 2. Create a class which represents the state which is shared between server and client.
 
-State has to extends JavaScriptComponentState (encapulation skipped in the example). To simplify our state contains just texts which are being compared.
+The state has to extend JavaScriptComponentState (encapulation skipped in the example). To simplify, our state contains just texts which are being compared.
 
 ```
 public class DiffViewerComponentState extends JavaScriptComponentState {
@@ -22,9 +22,9 @@ public class DiffViewerComponentState extends JavaScriptComponentState {
 }
 ```
 
-### 3. Create class which represent control on the server-side
+### 3. Create a class which represents control on the server-side.
 
-Contro on the server side has to extends AbstractJavaScriptComponent. In this class with usage of annotations there should be all required JS and CSS files included. JS files are inluced with annotation @JavaScript and CSS files with annotation @StyleSheet. This means that when the control is added to the page which is being rendered to the <head></head> element required JS and CSS will be added. Server side control has to implement getState() method which should return state object which is available to the server and client. All the others methods are just to update shared state of a control. As soon as state is updated a client will be notified.
+Control on the server side has to extend AbstractJavaScriptComponent. In this class, with usage of annotations, you should include all required JS and CSS files. JS files are inluced with @JavaScript annotation and CSS files with @StyleSheet annotation. This means that when the control is added to the page which is being rendered, required JS and CSS will be added to the <head></head> element. Server side control has to implement getState() method which should return state object, available to both the server and client. All the others methods are just to update shared state of control. As soon as the state is updated, the client will be notified.
 
 ```
 package com.us;
@@ -78,9 +78,9 @@ public class DiffViewerComponent extends AbstractJavaScriptComponent {
 }
 ```
 
-### 4. Create JS file which represent connector (connect server and client)
+### 4. Create JS file which represents connector (connects server and client).
 
-To initialize JS component and communication between server and client there is a connector JS file required. It has to have a initializer connector function defined with a name which is fully qualified name of the server side component (including package but '.' (dots) in package name have to be replaced with '_' (underscores)). It means that our initializer connector function is com_us_DiffViewerComponent (because DiffViewerComponent is defined on the server side inside com.us package). Connector is run on the Vaadin client side framework which means it adds some additional methods e.g. this.getElement() which returns HTML DOM element for the component. To handle changes on the server side the onStateChange function is required. It reads shared state and uses it to initialize / update JS component. 
+To initialize JS component and communication between server and client, JS file connector is required. It has to have an initializer connector function defined, with a name which is fully qualified name of the server side component (including package, but '.' (dots) in package name have to be replaced with '_' (underscores)). It means that our initializer connector function is com_us_DiffViewerComponent (because DiffViewerComponent is defined on the server side inside com.us package). The Connector is run on the Vaadin client side framework, which means it adds some additional methods (like: this.getElement(), which returns HTML DOM element for the component). To handle changes on the server side the onStateChange function is required. It reads shared state and uses it to initialize / update JS component. 
 
 
 ```
@@ -99,7 +99,7 @@ com_us_DiffViewerComponent = function() {
 
 ## Usage
 
-When the above implementation is done a DiffViewerComponent can be used on the server side like components which are built-in in Vaadin.
+When the above implementation is done, a DiffViewerComponent can be used on the server side, just like components which are built-in in Vaadin.
 
 ```
 VerticalLayout layout = new VerticalLayout();
